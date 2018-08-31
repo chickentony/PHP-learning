@@ -76,5 +76,30 @@ function translate($someString){
     return implode($result);
 };
 echo translate('лол[]');
+echo "<br>";
+
+$a = '';
+$separator = '_';
+
+function removeSpaces($a) {
+    global $separator;
+
+    if(!is_string($a)) {
+        echo 'В функцию передана не строка';
+    }
+    elseif (is_string($a)) {
+        $res = preg_split('//u',$a,-1,PREG_SPLIT_NO_EMPTY);
+
+        for($index = 0; $index < count($res); $index++) {
+            if ($res[$index] === ' ') {
+                $res[$index] = $separator;
+            }
+
+        }
+
+    }
+    return implode($res);
+};
+echo removeSpaces('это просто невероятно lox htr');
 
 ?>

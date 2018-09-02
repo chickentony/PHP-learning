@@ -1,0 +1,39 @@
+<?php
+
+$area_array = [
+    'Москвоская область' => ['Москва', 'Зеленоград', 'Клин', 'Электросталь', 'Кур'],
+    'Лениградская область' => ['Санкт-Петербург', 'Кронштадт', 'Выборг', 'Сосновый Бор', 'Кириши'],
+    'Рязанская область' => ['Рязань'],
+    'Нижегородска область' => ['Дзержинск', 'Кстово', 'Павлово'],
+    'Тверская олбасть' => ['Тверь', 'Ржев']
+];
+
+foreach ($area_array as $key => $value) {
+//    echo "<br> <b>$key</b> : <br>";
+    
+    foreach ($value as $k => $v) {
+//        var_dump($value);
+              $result = [];
+                $lox = '';
+//              $arr = [];  
+              $res = '';
+              if(strpos($v, 'К')!== false) { 
+//                 $result = $v;
+                  array_push($result, $v);
+                  foreach ($result as $name => $item){
+                      if($item === null){
+                          unset($result[$item]);
+                      }
+                      $lox = $item;
+                  }
+//                  var_dump($lox);
+                 $res = $key;
+              }
+        
+        echo "<b>$res</b>  <br> $lox ";
+        }
+    
+    }
+ 
+
+?>

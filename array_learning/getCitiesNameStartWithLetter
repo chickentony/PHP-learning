@@ -1,7 +1,7 @@
 <?php
 
 $area_array = [
-    'Москвоская область' => ['Москва', 'Зеленоград', 'Клин', 'Электросталь', 'Кур'],
+    'Московская область' => ['Москва', 'Зеленоград', 'Клин', 'Электросталь', 'Кур'],
     'Лениградская область' => ['Санкт-Петербург', 'Кронштадт', 'Выборг', 'Сосновый Бор', 'Кириши'],
     'Рязанская область' => ['Рязань'],
     'Нижегородска область' => ['Дзержинск', 'Кстово', 'Павлово'],
@@ -9,31 +9,17 @@ $area_array = [
 ];
 
 foreach ($area_array as $key => $value) {
-//    echo "<br> <b>$key</b> : <br>";
-    
+    echo "<br> <b>$key</b> : <br>";
     foreach ($value as $k => $v) {
-//        var_dump($value);
-              $result = [];
-                $lox = '';
-//              $arr = [];  
-              $res = '';
-              if(strpos($v, 'К')!== false) { 
-//                 $result = $v;
-                  array_push($result, $v);
-                  foreach ($result as $name => $item){
-                      if($item === null){
-                          unset($result[$item]);
-                      }
-                      $lox = $item;
-                  }
-//                  var_dump($lox);
-                 $res = $key;
+              $result = '';
+              if (strpos($v, 'К')!== false) {
+                  $result = $v;
               }
-        
-        echo "<b>$res</b>  <br> $lox ";
-        }
-    
+//              else if (strpos($v, 'К') === false) {
+//                  echo 'test';
+//        }
+        echo " $result";
     }
+}
  
-
 ?>

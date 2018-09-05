@@ -1,46 +1,49 @@
 <?php
 
-$area_array = [
-    'Московская область' => ['Москва', 'Зеленоград', 'Клин', 'Электросталь', 'Кур'],
+$cities = [
+    'Москвоская область' => ['Москва', 'Зеленоград', 'Клин', 'Электросталь', 'Кур'],
     'Лениградская область' => ['Санкт-Петербург', 'Кронштадт', 'Выборг', 'Сосновый Бор', 'Кириши'],
-    'Рязанская область' => ['Рязань'],
+//    'Рязанская область' => ['Рязань'],
     'Нижегородска область' => ['Дзержинск', 'Кстово', 'Павлово'],
-    'Тверская олбасть' => ['Тверь', 'Ржев']
-];
+//    'Тверская олбасть' => ['Тверь', 'Ржев'],
 
-foreach ($area_array as $key => $value) {
-    echo "<br> <b>$key</b> : <br>";
-    foreach ($value as $k => $v) {
-              $result = '';
-              if (strpos($v, 'К')!== false) {
-                  $result = $v;
-              }
-//              else if (strpos($v, 'К') === false) {
-//                  echo 'test';
+];
+$letter = 'К';
+//foreach ($cities as $key => $value) {
+//    echo "<br> $key : <br>";
+//    $res ='';
+//    foreach ($value as $v) {
+//        if (strpos($v, 'К') !== false) {
+//            $res = $v;
+//            echo " $res";
 //        }
-        echo " $result";
-    }
-}
- 
-function searchTown($arr) {
-//    if(!is_string($letter) && !is_array($arr)) {
-//        echo 'Некорректные значения';
+//
 //    }
-//    elseif()
-//    $someLetter = '';
-      $emptyArr = '';
-    foreach($arr as $outerKey => $outerValue) {
-        if(is_array($outerValue)) {
-            for($i = 0; $i < count($outerValue); $i++) {
-//                var_dump($outerValue[$i]);
-                echo "<br>";
-//                if ()
-                $emptyArr = explode(',', $outerValue[$i]);
-                var_dump($emptyArr);
+//}
+
+function searchTown($arr, $letter)
+{
+    if (!is_string($letter) || !is_array($arr)) {
+        echo "Некорректные значения";
+    } else {
+
+        $result = '';
+        foreach ($arr as $outerKey => $outerValue) {
+        echo "<b> <br> $outerKey : </b> ";
+
+
+            if (is_array($outerValue)) {
+                foreach ($outerValue as $innerValue) {
+                    if (strpos($innerValue, $letter) !== false) {
+                        $result = $innerValue;
+                        echo "<br> $result";
+                    }
+                }
+
             }
         }
     }
 }
-echo searchTown($cities);
+echo searchTown($cities, $letter);
 
 ?>

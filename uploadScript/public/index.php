@@ -1,6 +1,7 @@
 <?php
 require_once '../templates/index.tpl';
 require_once '../config/main.php';
+require_once '../render/resize.php';
 
 $uploadDir = 'upload/';
 $uploadFile = $uploadDir . ($_FILES['userfile']['name']);
@@ -36,15 +37,21 @@ else {
     generateExeption($error);
 }
 
-$file = scandir($uploadDir);
-var_dump($file);
-
-for($i = 0; $i < count($file); $i++) {
-    $path = $uploadDir.$file[$i];
-    echo "<img src = $path>";
+if (is_dir($uploadDir)){
+    
+    $file = scandir($uploadDir);
+    for($i = 0; $i < count($file); $i++) {
+        if ($file[$i] !== '.' && $file[$i] !== '..') {
+            
+        $path = $uploadDir . $file[$i];
+//        header('Content-type: image/png');    
+//        create_thumbnail($path, 'upload/', '300', '300');    
+//        echo "<img src = $path width = 300; height = 300;>";
+            img_resize('../public/upload/', '../public/upload/', '300', '300', $rgb = 0xFFFFFF, $quality = 100);
+        }
+//        closedir($uploadDir);
+    }
 }
-echo "<img src = 'upload/' alt = 'image'>";
-//var_dump($_SERVER['DOCUMENT_ROOT']);
-//resizeImage('android listing.png', '100','100');
 
+//resizeImage('android listing.png', '100','100');
 //phpinfo();

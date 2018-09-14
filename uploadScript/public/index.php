@@ -35,6 +35,15 @@ if ($_FILES['userfile']['error'] === UPLOAD_ERR_OK) {
 else {
     generateExeption($error);
 }
+
+$file = scandir($uploadDir);
+var_dump($file);
+
+for($i = 0; $i < count($file); $i++) {
+    $path = $uploadDir.$file[$i];
+    echo "<img src = $path>";
+}
+echo "<img src = 'upload/' alt = 'image'>";
 //var_dump($_SERVER['DOCUMENT_ROOT']);
 //resizeImage('android listing.png', '100','100');
 

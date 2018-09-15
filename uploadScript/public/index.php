@@ -42,16 +42,21 @@ if (is_dir($uploadDir)){
     $file = scandir($uploadDir);
     for($i = 0; $i < count($file); $i++) {
         if ($file[$i] !== '.' && $file[$i] !== '..') {
-            
-        $path = $uploadDir . $file[$i];
-//        header('Content-type: image/png');    
-//        create_thumbnail($path, 'upload/', '300', '300');    
-//        echo "<img src = $path width = 300; height = 300;>";
-            img_resize('../public/upload/', '../public/upload/', '300', '300', $rgb = 0xFFFFFF, $quality = 100);
+        
+        $path = $uploadDir . $file[$i];   
+        echo "
+              <div class = 'container'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <div class = 'float-left'>
+                            <img src = $path width = 300; height = 300; class = 'img-thumbnail'>
+                        </div>
+                    </div>
+                </div>
+              </div>";
+//            img_resize('../public/upload/', '../public/upload/', '300', '300', $rgb = 0xFFFFFF, $quality = 100);
         }
 //        closedir($uploadDir);
     }
 }
 
-//resizeImage('android listing.png', '100','100');
-//phpinfo();

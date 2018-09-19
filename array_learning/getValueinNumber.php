@@ -4,8 +4,9 @@
 //Например: цифра 5 в числе 442158755745 встречается 4 раза
 
 function getValueInNumber($value, $number) {
-    $id = 0;
+    $count = 0;
     $arr = [];
+    $result = 0;
     //Приведение чисел к строке
     $number = (string)$number;
     $value = (string)$value;
@@ -13,10 +14,10 @@ function getValueInNumber($value, $number) {
     $arr = str_split($number);
     for($i = 0; $i < count($arr); $i++) {
         if ($arr[$i] === $value) {
-            $result = ++$id;
+            $result = ++$count;
         }
     }
 
     return $result;
 }
-echo getValueinNumber(1, 1132);
+echo getValueInNumber(5, 1132);

@@ -1,31 +1,22 @@
 <?php
-function getValueinNumber($value, $number) {
+
+//Вам нужно разработать программу, которая считала бы количество вхождений какой-нибуть выбранной вами цифры в выбранном вами числе.
+//Например: цифра 5 в числе 442158755745 встречается 4 раза
+
+function getValueInNumber($value, $number) {
     $id = 0;
+    $arr = [];
+    //Приведение чисел к строке
     $number = (string)$number;
     $value = (string)$value;
-//    var_dump($number);
-    echo "<br>";
-    $arr = [];
+    //Преобразование строки с числами к массиву
     $arr = str_split($number);
-//    var_dump($arr);
-    echo "<br>";
     for($i = 0; $i < count($arr); $i++) {
-//        var_dump($arr[$i]);
-//        echo "<br>";
-//        var_dump($arr[$i] === $value);
         if ($arr[$i] === $value) {
-            
             $result = ++$id;
-//            return $id++;
-//            var_dump($result);
         }
     }
-        return $result;
-//        var_dump($result);
 
-    
+    return $result;
 }
-echo getValueinNumber(5, 555556);
-//$a = 55;
-//$a = (string)$a;
-//echo gettype($a);
+echo getValueinNumber(1, 1132);

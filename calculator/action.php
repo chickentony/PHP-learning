@@ -1,10 +1,12 @@
 <?php
-var_dump($_POST); 
+require_once 'calculateForm.html';
+//var_dump($_POST); 
 //echo (int)$_POST['firstNumber'];
  
 if (isset($_POST['firstNumber']) && isset($_POST['secondNumber']) && $_POST['firstNumber'] !== '' && $_POST['secondNumber'] !== '') {
     $firstNumber = (int)$_POST['firstNumber'];
     $secondNumber = (int)$_POST['secondNumber'];
+    
 //    $mathOperation = $_POST['operations'];
 }
 else {

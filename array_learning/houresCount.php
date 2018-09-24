@@ -10,34 +10,36 @@ function houresCount($number) {
     $count = null;
     $res = null;
     $result = null;
+    $min = null;
+    $houersSpend = null;
     $houers = [60, 120, 180, 240, 300];
-    $minutes = [30, 90, 150, 210, 270];
-//    $oneHouer = 60;
-//    $twoHouers = 120;
     
-//    var_dump($result);
     for($i = 0; $i <= $number; $i++) {
         $count = $i / 0.5;
         //Счетчик для количества пройденных часов.
         for($index = 0; $index < count($houers); $index++) {
             if($houers[$index] == $count) {
-                $result++;
-                var_dump($result);
+                $houersSpend++;
+//                var_dump($houersSpend);
             }
     }
         //Реализация для минут, подумать
-        if()
-        var_dump($count);
+        if(($number % 60) !== 0) {
+            $res = $number % 60;
+            $min = $res / 0.5;
+//            var_dump($min);
+//            var_dump($res);
+            $result = "$houersSpend . $min";
+            
+        }
+        
     }
-//    return $count;
-//    
-//    if ($number === 0) {
-//        echo '12 : 00.';
-//    }
-//    else if ($number === 180) {
-//        echo 'Six hores spend.';
-//    }
+    return $result;
+//    echo $result;
+//    var_dump($houersSpend);
+//    var_dump($min);
+//    var_dump($result);  
     
 }
 
- houresCount (120);
+echo houresCount(73);

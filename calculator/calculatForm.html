@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+   
+<form method="POST" action="action.php" style="width: 500px">
+    <div class="form-group">
+        <label for="nameForFirstNumber">Первое число</label>
+        <input type="text" name="firstNumber" id="nameForFirstNumber" placeholder="Введите число" class="form-control">
+        <label for="nameForSecondNumber">Второе число</label>
+        <input type="text" name="secondNumber" id="nameForSecondNumber" placeholder="Введите число" class="form-control">
+    </div>
+    <div class="form-group">       
+        <br>
+        <button type="submit" name="multiple" class="btn btn-dark" value="*">*</button>
+        <button type="submit" name="dev" class="btn btn-dark" value="/">/</button>
+        <button type="submit" name="sub" class="btn btn-dark" value="-">-</button>
+        <button type="submit" name="sum" class="btn btn-dark" value="+">+</button>
+    </div>
+    </form>
+    
+</body>
+</html>

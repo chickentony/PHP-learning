@@ -20,13 +20,18 @@ class Hamburger
 // 	// const STUFFING_POTATO;
 // 	const TOPPING_MAYO = 20;
 // 	const TOPPING_SPICE = 15;
-	public $smallSize, $bigSize;
-	public $toppingMayo, $toppingSpice;
+	public $smallSize; 
+	public $bigSize;
+	public $toppingMayo; 
+	public $toppingSpice;
+	public $stuffingCheese;
+	public $stuffingSalad;
+	public $stuffingPotato;
 
-	function __construct($size, $stuffing) 
+	public function __construct($size, $stuffing) 
 	{
 		$this->smallSize = $size;
-		$this->STUFFING_CHEESE = $stuffing;
+		$this->stuffingPotato = $stuffing;
 
 	}
 
@@ -39,15 +44,33 @@ class Hamburger
 		if ($topping === 'spice') {
 			$result = $this->toppingSpice = 15;
 		}
+		// if (empty($this->toppingSpice) || empty($this->toppingMayo)) {
+		// 	$result = 'Ингредиенты уже добавлены.';
+		// }
 		return $result;
 		// $this->TOPPING_MAYO = $topping;
 		// $this->TOPPING_SPICE = $topping;
 	}
 
+	public function removeTopping($someTopping) 
+	{
+		$result;
+		if ($someTopping === 'mayo') {
+			$result = $this->toppingMayo = null;
+		}
+		if ($someTopping === 'spice') {
+			$result = $this->toppingSpice = null;
+		}
+
+		return $result;
+	}
+
 }
 
 $hamburger = new Hamburger(50, 10);
-$hamburger->addTopping('mayo');
+$hamburger->addTopping('spice');
+// $hamburger->addTopping('mayo');
+$hamburger->removeTopping('spice');
 var_dump($hamburger);
 // var_dump($hamburger->addTopping('mayo'));
 // var_dump($hamburger->addTopping('spice'));

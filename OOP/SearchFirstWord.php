@@ -6,7 +6,7 @@
  * Строка может начинаться с буквы или, к примеру, с пробела или точки
  * В слове может быть апостроф и он является частью слова
  * Весь текст может быть представлен только одним словом и все +
-*/
+ */
 class SearchFirstWord
 {
     /**
@@ -19,30 +19,43 @@ class SearchFirstWord
     /**
      * Метод превращает строку в массив.
      */
+    private function stringToArray($someString)
+    {
+        return explode(' ', $someString);
 
-   public function stringToArray($someString)
-   {
-       return explode(' ', $someString);
- 
-   }
-//    private function checkFirstElem($val)
-//    {
-//        $this->removeSpecialChars($val);
-//        $this->stringToArray($val);
-//        var_dump($val);
-//        for ($i = 0; $i < count($val); $i++) {
-//            var_dump($val[$i]);
-//        }
-//
-//    }
+    }
+
+    private function checkFirstElem($val)
+    {
+        $result = '';
+        $res = [];
+        $this->removeSpecialChars($val);
+        $result = $this->stringToArray($val);
+//        var_dump($result);
+        for ($i = 0; $i < count($result); $i++) {
+            if (strlen($result[$i]) > 2) {
+//                var_dump($result[$i]);
+                $newString = $result[$i];
+                $a = $this->stringToArray($newString);
+                var_dump($a);
+//                var_dump($newString);
+//                $newArr = array_push($res, $val[$i]);
+//                var_dump($newArr);
+//                var_dump($result[$i]);
+            }
+        }
+        return $result;
+
+    }
+
     public function searchWord($someWord)
     {
         $result = '';
-        $strArr = $this->stringToArray($someWord);
-       var_dump($strArr);
+//        $strArr = $this->stringToArray($someWord);
+        $result = $this->checkFirstElem($someWord);
+//        var_dump($result);
         // for($i = 0; $i < count($arr); $i++) {
         //     if (strlen($arr[$i]) > 1) {
-
         //        }
         // }
         if (is_string($someWord[0])) {
@@ -53,5 +66,4 @@ class SearchFirstWord
     }
 }
 $someString = new SearchFirstWord;
-
 echo $someString->searchWord('l lox, pidor');

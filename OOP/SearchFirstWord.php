@@ -22,48 +22,36 @@ class SearchFirstWord
     private function stringToArray($someString)
     {
         return explode(' ', $someString);
-
     }
 
-    private function checkFirstElem($val)
+    private function removeShortLetters($value)
     {
-        $result = '';
-        $res = [];
-        $this->removeSpecialChars($val);
-        $result = $this->stringToArray($val);
-//        var_dump($result);
-        for ($i = 0; $i < count($result); $i++) {
-            if (strlen($result[$i]) > 2) {
-//                var_dump($result[$i]);
-                $newString = $result[$i];
-                $a = $this->stringToArray($newString);
-                var_dump($a);
-//                var_dump($newString);
-//                $newArr = array_push($res, $val[$i]);
-//                var_dump($newArr);
-//                var_dump($result[$i]);
-            }
-        }
-        return $result;
-
+        return preg_replace('/\b(\S{1,2}|\S{})\b/', "",  $value);
     }
+
+    // private function checkFirstElem($val)
+    // {
+    //     // $result = '';
+    //     $stringWithoutSpecialChars = $this->removeSpecialChars($val);
+    //     return $this->removeShortLetters($stringWithoutSpecialChars);
+        
+    //     // var_dump($stringWithoutShortLetters);
+    // }
 
     public function searchWord($someWord)
     {
-        $result = '';
-//        $strArr = $this->stringToArray($someWord);
-        $result = $this->checkFirstElem($someWord);
-//        var_dump($result);
-        // for($i = 0; $i < count($arr); $i++) {
-        //     if (strlen($arr[$i]) > 1) {
-        //        }
-        // }
-        if (is_string($someWord[0])) {
-            $result = $someWord[0];
-//            var_dump($result);
+        $result = $this->removeSpecialChars($someWord);
+        $result = $this->removeShortLetters($result);
+        $result = $this->stringToArray($result);
+        foreach ($result as $key => $value) {
+            if ($value !== '') {
+                $res = $value;
+                break;
+            }
         }
-        return $this->removeSpecialChars($result);
+
+        return $res;
     }
 }
 $someString = new SearchFirstWord;
-echo $someString->searchWord('l lox, pidor');
+echo $someString->searchWord('ny pizdec!');

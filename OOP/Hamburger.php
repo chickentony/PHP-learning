@@ -1,4 +1,5 @@
 <?php
+
 /*
 Некая сеть фаст-фудов предлагает несколько видов гамбургеров:
 	маленький (50 рублей, 20 калорий);
@@ -10,16 +11,15 @@
 Дополнительно, гамбургер можно посыпать приправой (+ 15 рублей, 0 калорий) и полить майонезом (+ 20 рублей, + 5 калорий). 
 Напишите программу, рассчитывающую стоимость и калорийность гамбургера
 */
-
-class Hamburger
+class FastFood
 {
-// 	const SMALL_SIZE = 50;
-// 	const BIG_SIZE = 100;
-// 	const STUFFING_CHEESE = 15;
-// 	// const STUFFING_SALAD;
-// 	// const STUFFING_POTATO;
-// 	const TOPPING_MAYO = 20;
-// 	const TOPPING_SPICE = 15;
+	// const SMALL_SIZE = false;
+	// const BIG_SIZE = false;
+	// const STUFFING_CHEESE = false;
+	// const STUFFING_SALAD = false;
+	// const STUFFING_POTATO = false;
+	// const TOPPING_MAYO = false;
+	// const TOPPING_SPICE = false;
 	public $smallSize; 
 	public $bigSize;
 	public $toppingMayo; 
@@ -30,47 +30,58 @@ class Hamburger
 
 	public function __construct($size, $stuffing) 
 	{
-		$this->smallSize = $size;
-		$this->stuffingPotato = $stuffing;
-
+		if ($size === 'small') {
+			$this->smallSize = true;
+			// self::SMALL_SIZE = true;
+		} elseif ($size === 'big') {
+			$this->bigSize = true;
+		} elseif ($stuffing === 'cheese') {
+			$this->stuffingCheese = true;
+		} elseif ($stuffing === 'salad') {
+			$this->stuffingSalad = true;
+		} elseif ($stuffing === 'potato') {
+			$this->stuffingPotato = true;
+		} else {
+			throw new Exception('Один из параметров указан ен верно.');
+		}	
 	}
 
-	public function addTopping($topping)
-	{
-		$result;
-		if ($topping === 'mayo') {
-			$result = $this->toppingMayo = 20;
-		}
-		if ($topping === 'spice') {
-			$result = $this->toppingSpice = 15;
-		}
-		// if (empty($this->toppingSpice) || empty($this->toppingMayo)) {
-		// 	$result = 'Ингредиенты уже добавлены.';
-		// }
-		return $result;
-		// $this->TOPPING_MAYO = $topping;
-		// $this->TOPPING_SPICE = $topping;
-	}
-
-	public function removeTopping($someTopping) 
-	{
-		$result;
-		if ($someTopping === 'mayo') {
-			$result = $this->toppingMayo = null;
-		}
-		if ($someTopping === 'spice') {
-			$result = $this->toppingSpice = null;
-		}
-
-		return $result;
-	}
-
+	// public function addTopping($topping)
+	// {
+	// 	$result;
+	// 	if ($topping === 'mayo') {
+	// 		$result = $this->toppingMayo = 20;
+	// 	}
+	// 	if ($topping === 'spice') {
+	// 		$result = $this->toppingSpice = 15;
+	// 	}
+	// 	// if (empty($this->toppingSpice) || empty($this->toppingMayo)) {
+	// 	// 	$result = 'Ингредиенты уже добавлены.';
+	// 	// }
+	// 	return $result;
+	// 	// $this->TOPPING_MAYO = $topping;
+	// 	// $this->TOPPING_SPICE = $topping;
+	// }
+	// public function removeTopping($someTopping) 
+	// {
+	// 	$result;
+	// 	if ($someTopping === 'mayo') {
+	// 		$result = $this->toppingMayo = null;
+	// 	}
+	// 	if ($someTopping === 'spice') {
+	// 		$result = $this->toppingSpice = null;
+	// 	}
+	// 	return $result;
+	// }
 }
 
-$hamburger = new Hamburger(50, 10);
-$hamburger->addTopping('spice');
-// $hamburger->addTopping('mayo');
-$hamburger->removeTopping('spice');
+try {
+	$hamburger = new FastFood(1, 2);
+} catch(Exception $e) {
+	echo 'Message:' . $e->getMessage();
+} 
+
+$hamburger = new FastFood('s', 'cheese');
 var_dump($hamburger);
 // var_dump($hamburger->addTopping('mayo'));
 // var_dump($hamburger->addTopping('spice'));

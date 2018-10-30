@@ -1,71 +1,67 @@
-<?php
-/**
- * Дана строка и нужно найти ее первое слово.
- * При решении задачи обратите внимание на следующие моменты:
- * В строке могут встречатся точки и запятые
- * Строка может начинаться с буквы или, к примеру, с пробела или точки
- * В слове может быть апостроф и он является частью слова
- * Весь текст может быть представлен только одним словом и все
- */
-class SearchFirstWord
+class FastFood
 {
+    // const SMALL_SIZE = false;
+    // const BIG_SIZE = false;
+    // const STUFFING_CHEESE = false;
+    // const STUFFING_SALAD = false;
+    // const STUFFING_POTATO = false;
+    // const TOPPING_MAYO = false;
+    // const TOPPING_SPICE = false;
+    public $smallSize;
+    public $bigSize;
+    public $toppingMayo;
+    public $toppingSpice;
+    public $stuffingCheese;
+    public $stuffingSalad;
+    public $stuffingPotato;
 
-    /**
-     * Метод убирает не нужные знаки припенания.
-     */
-    private function removeSpecialChars(string $someString)
+    public function __construct($size, $stuffing)
     {
-        return preg_replace("|[^\d\w ]+|i"," ", $someString);
-    }
-
-    /**
-     * Метод превращает строку в массив.
-     */
-    private function stringToArray(string $someString)
-    {
-        return explode(' ', $someString);
-    }
-
-    /**
-     * Метод убирает символы короче 2 из начала строки.
-     */
-    private function removeShortLetters(string $someSting)
-    {
-        return preg_replace('/\b(\S{1,2}|\S{})\b/', "",  $someSting);
-    }
-
-    /**
-     * Основной метод, осуществляет поиск первого слова в строке.
-     */
-    public function searchWord(string $someWords)
-    {
-        if ($someWords !== '') {
-            $words = $this->removeSpecialChars($someWords);
-            $words = $this->removeShortLetters($words);
-            $words = $this->stringToArray($words);
-            foreach ($words as $key => $value) {
-                if ($value !== '') {
-                    $result = $value;
-                    break;
-                }
-            }
-            return $result;
-        } else {
-            throw new Exception('Передана пустая строка.');
+        if ($size === 'small') {
+            $this->smallSize = true;
+            // self::SMALL_SIZE = true;
         }
-
-        return false;
+        if ($size === 'big') {
+            $this->bigSize = true;
+        }
+        if ($stuffing === 'cheese') {
+            $this->stuffingCheese = true;
+        }
+        if ($stuffing === 'salad') {
+            $this->stuffingSalad = true;
+        }
+        if ($stuffing === 'potato') {
+            $this->stuffingPotato = true;
+        }
+        if ($size === null || $stuffing === null || $size === '' || $stuffing === '') {
+            throw new Exception('Один или несколько параметров переданы не верно.');
+        }
     }
+
+    public function addTopping($topping)
+    {
+        if ($topping === 'mayo') {
+            $this->toppingMayo = true;
+        }
+        if ($topping === 'spice') {
+            $this->toppingSpice = true;
+        }
+    }
+
+//    public function checkException()
+//    {
+//        try {
+//            if (new FastFood(null, null));
+//        } catch ()
+//    }
+
 }
-
-$someString = new SearchFirstWord;
-
 try {
-
-    echo $someString->searchWord('test');
+    $hamburger = new FastFood('small', 'potato');
+} catch(Exception $e) {
+    echo 'Message:' . $e->getMessage();
 }
-
-catch (Exception $e) {
-
-    echo 'Message: ' . $e->getMessage();
-}
+$hamburger->addTopping('spice');
+var_dump($hamburger);
+// var_dump($hamburger->addTopping('mayo'));
+// var_dump($hamburger->addTopping('spice'));

@@ -30,7 +30,8 @@ class FastFood
 
     private $size;
     private $stuffing;
-    private $topping;
+    private $topping = [];
+    // private $arr = $this->getTopping();
 
     public function __construct($size, $stuffing)
     {
@@ -65,34 +66,124 @@ class FastFood
         }
     }
 
-    public function getHamburger()
-    {
-        return $this->size . $this->stuffing;
-    }
-
     /**
-      * Дополнительная добавка, нужно реализовать кейс с одновременным добавлением.
+      * Добавление дополнительной добавки.
      */
     public function _setTopping($topping)
     {
         if ($topping === 'mayo') {
-            $this->topping = 'mayo';
+            $this->topping[0] = 'mayo';
         }
         if ($topping === 'spice') {
-            $this->topping = 'spice';
+            $this->topping[0] = 'spice';
         }
+        if ($topping === 'twin') {
+            $this->topping[0] = 'spice';
+            $this->topping[1] = 'mayo';    
+        }
+        
+        // for ($i = 0; $i < count($this->topping); $i++) {
+        //     if ($this->topping[$i] !== null) {
+        //         $result = $this->topping[$i];
+        //     }
+        // } 
+        // return $result;
     }
 
+    /**
+      * Получаем массив добавок.
+     */
+    public function getTopping()
+    {
+        return $this->topping;
+    }
+
+    /**
+      * Убираем добавку, если она есть.
+     */    
     public function removeTopping()
     {
-        if ($this->topping !== null) {
-            unset ($this->topping);
+        for ($i = 0; $i < count($this->topping); $i++) {
+            if ($this->topping[$i] !== null) {
+                unset($this->topping[$i]);
+            }
         }
+        return $this->topping;
+    }
+
+    /**
+      * Получаем размер гамбургера.
+     */
+    public function getSize() 
+    {
+        return $this->size;
+    }
+
+    /**
+      * Получаем начинку.
+     */
+    public function getStuffing() 
+    {
+        return $this->stuffing;
+    }
+
+    /**
+      * Вычисляем стоимость гамбургера.
+     */
+    public function calculatePrice() 
+    {
+        if ($this->getSize() === 'small') {
+            $result = 50;
+        }
+        if ($this->getSize() === 'big') {
+            $result = 100;
+        }
+        if ($this->getStuffing() === 'cheese') {
+            $result += 10;
+        }
+        if ($this->getStuffing() === 'salad') {
+            $result += 20;
+        }
+        if ($this->getStuffing() === 'potato') {
+            $result += 10;
+        }
+        if ($this->topping === 'spice') {
+            $result += 15;
+        }
+
+        return $result;
+    }
+
+    /**
+      * Вычисляем калорийность.
+     */
+    public function calculateCalories() 
+    {
+       if ($this->getSize() === 'small') {
+            $result = 20;
+        }
+        if ($this->getSize() === 'big') {
+            $result = 40;
+        }
+        if ($this->getStuffing() === 'cheese') {
+            $result += 20;
+        }
+        if ($this->getStuffing() === 'salad') {
+            $result += 5;
+        }
+        if ($this->getStuffing() === 'potato') {
+            $result += 10;
+        }
+
+        return $result;
     }
 }
 
 $hamburger = new FastFood('small', 'cheese');
 $hamburger->_setTopping('spice');
-$hamburger->removeTopping();
+// $hamburger->getTopping();
+// $hamburger->removeTopping();
 var_dump($hamburger);
-echo $hamburger->getHamburger();
+// var_dump($hamburger->getTopping());
+var_dump($hamburger->calculatePrice());
+// echo $hamburger->getTopping();

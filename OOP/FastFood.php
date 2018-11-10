@@ -1,37 +1,21 @@
 <?php
 
 /**
-Некая сеть фаст-фудов предлагает несколько видов гамбургеров:
-	маленький (50 рублей, 20 калорий);
-	большой (100 рублей, 40 калорий).
-Гамбургер может быть с одним из нескольких видов начинок (обязательно):
-	сыром (+ 10 рублей, + 20 калорий);
-	салатом (+ 20 рублей, + 5 калорий);
-	картофелем (+ 15 рублей, + 10 калорий).
-Дополнительно, гамбургер можно посыпать приправой (+ 15 рублей, 0 калорий) и полить майонезом (+ 20 рублей, + 5 калорий).
-Напишите программу, рассчитывающую стоимость и калорийность гамбургера
+* Некая сеть фаст-фудов предлагает несколько видов гамбургеров:
+*	маленький (50 рублей, 20 калорий);
+*	большой (100 рублей, 40 калорий).
+* Гамбургер может быть с одним из нескольких видов начинок (обязательно):
+*	сыром (+ 10 рублей, + 20 калорий);
+*	салатом (+ 20 рублей, + 5 калорий);
+*	картофелем (+ 15 рублей, + 10 калорий).
+* Дополнительно, гамбургер можно посыпать приправой (+ 15 рублей, 0 калорий) и полить майонезом (+ 20 рублей, + 5 калорий).
+* Напишите программу, рассчитывающую стоимость и калорийность гамбургера
 */
 class FastFood
 {
-    // const SMALL_SIZE = false;
-    // const BIG_SIZE = false;
-    // const STUFFING_CHEESE = false;
-    // const STUFFING_SALAD = false;
-    // const STUFFING_POTATO = false;
-    // const TOPPING_MAYO = false;
-    // const TOPPING_SPICE = false;
-//    public $smallSize;
-//    public $bigSize;
-//    public $toppingMayo;
-//    public $toppingSpice;
-//    public $stuffingCheese;
-//    public $stuffingSalad;
-//    public $stuffingPotato;
-
     private $size;
     private $stuffing;
     private $topping = [];
-    // private $arr = $this->getTopping();
 
     public function __construct($size, $stuffing)
     {
@@ -39,10 +23,13 @@ class FastFood
             $this->_setSize($size);
             $this->_setStuffing($stuffing);
         } else {
-            echo 'Переданные параметры не являются строкой';
+            echo hamburgerExeption();
         }
     }
 
+    /**
+      * Указываем размер.
+     */
     private function _setSize($size)
     {
         if ($size === 'small') {
@@ -51,8 +38,14 @@ class FastFood
         if ($size === 'big') {
             $this->size = 'big';
         }
+        if ($size !== 'small' && $size !== 'big') {
+            echo hamburgerExeption();
+        }
     }
 
+    /**
+      * Указываем начинку.
+     */
     private function _setStuffing($stuffing)
     {
         if ($stuffing === 'cheese') {
@@ -63,6 +56,9 @@ class FastFood
         }
         if ($stuffing === 'potato') {
             $this->stuffing = 'potato';
+        }
+        if ($stuffing !== 'cheese' && $stuffing !== 'salad' && $stuffing !== 'potato') {
+            echo hamburgerExeption();
         }
     }
 
@@ -77,17 +73,14 @@ class FastFood
         if ($topping === 'spice') {
             $this->topping[0] = 'spice';
         }
-        if ($topping === 'twin') {
+        if ($topping === 'both') {
             $this->topping[0] = 'spice';
             $this->topping[1] = 'mayo';    
         }
-        
-        // for ($i = 0; $i < count($this->topping); $i++) {
-        //     if ($this->topping[$i] !== null) {
-        //         $result = $this->topping[$i];
-        //     }
-        // } 
-        // return $result;
+        if ($topping !== 'mayo' && $topping !== 'spice' && $topping !== 'both') {
+            echo hamburgerExeption();
+        }
+
     }
 
     /**
@@ -103,11 +96,10 @@ class FastFood
      */    
     public function removeTopping()
     {
-        for ($i = 0; $i < count($this->topping); $i++) {
-            if ($this->topping[$i] !== null) {
-                unset($this->topping[$i]);
-            }
+        if (count($this->topping) < 2) {
+            $this->topping[0] = null;
         }
+
         return $this->topping;
     }
 
@@ -147,8 +139,12 @@ class FastFood
         if ($this->getStuffing() === 'potato') {
             $result += 10;
         }
-        if ($this->topping === 'spice') {
+        if ($this->topping[0] === 'spice') {
             $result += 15;
+        } elseif ($this->topping[0] === 'mayo') {
+            $result += 20;
+        } elseif (count($this->topping) > 1 && ($this->topping[0] !== null)) {
+            $result += 35;
         }
 
         return $result;
@@ -174,16 +170,21 @@ class FastFood
         if ($this->getStuffing() === 'potato') {
             $result += 10;
         }
+        if ($this->topping[0] === 'mayo') {
+            $result += 5;
+        }
 
         return $result;
     }
 }
 
-$hamburger = new FastFood('small', 'cheese');
-$hamburger->_setTopping('spice');
-// $hamburger->getTopping();
-// $hamburger->removeTopping();
-var_dump($hamburger);
-// var_dump($hamburger->getTopping());
-var_dump($hamburger->calculatePrice());
-// echo $hamburger->getTopping();
+function hamburgerExeption() {
+    return 'Параметр указан не верно.';
+}
+
+$hamburger = new FastFood('big', 'cheese');
+$hamburger->_setTopping('mayo');
+
+echo 'Цена получившегося гамбургера' . ' ' . $hamburger->calculatePrice();
+echo "<br>";
+echo 'Калорийность получившегося гамбургера' . ' ' . $hamburger->calculateCalories();

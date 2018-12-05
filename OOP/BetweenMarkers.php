@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Вам дана строка и два маркера (начальный и конечный). Вам необходимо найти текст, заключенный между двумя этими маркерами. Но есть несколько важных условий:
  * Начальный и конечный маркеры всегда разные
@@ -9,10 +10,17 @@
  */
 class BetweenMarkers
 {
-    private function emptyFirstMarker($value, $secondValue)
+    private function checkIfEmptyFirstMarker($text, $secondMarker)
     {
-        $result = stristr($value, $secondValue, true);
+        $result = stristr($text, $secondMarker, true);
+        return $result;
+    }
 
+    private function checkIfEmptySecondMarker($text, $firstMarker)
+    {
+        //Убрать из текста все лишние символы.
+        $position = strpos($text, $firstMarker);
+        $result = substr($text, $position);
         return $result;
     }
 
@@ -20,32 +28,53 @@ class BetweenMarkers
     {
         $res = [];
         $result = [];
+        $firstMarkerPos = strpos($text, $firstMarker);
+        $secondMarkerPos = strpos($text, $secondMarker);
+
         if (!empty($firstMarker) && !empty($secondMarker)) {
-            $firstPos = strpos($text, $firstMarker);
-            $secondPos = strpos($text, $secondMarker);
-            $textAfterFirstMarker = substr($text, $firstPos);
-            // var_dump($res);
+            $textAfterFirstMarker = substr($text, $firstMarkerPos);
             $textBelowSecondMarker = stristr($textAfterFirstMarker, $secondMarker, true);
-            // var_dump($result);
             $textArr = str_split($textBelowSecondMarker);
             for ($i = 1; $i < count($textArr); $i++) {
-                // var_dump($textArr[$i]);
                 array_push($res, $textArr[$i]);
-                // var_dump($res);
             }
             $result = implode($res);
-//            var_dump($result);
         }
-        if ($firstMarker === '') {
-           $result =  $this->emptyFirstMarker($text, $secondMarker);
+
+        if ($firstMarker === '' && $secondMarker !== '') {
+           return $this->checkIfEmptyFirstMarker($text, $secondMarker);
+        }
+
+        if ($secondMarker === '' && $firstMarker !== '') {
+            return $this->checkIfEmptySecondMarker($text, $firstMarker);
+        }
+
+        if ($firstMarker === $secondMarker && !empty($firstMarker) && !empty($secondMarker)) {
+            throw new Exception('Начальный и конечный маркеры, должны отличаться!');
+        }
+
+        if (empty($firstMarker) && empty($secondMarker)) {
+            $result = $text;
+        }
+
+        if ($secondMarkerPos < $firstMarkerPos) {
+            return ' ';
         }
 
         return $result;
     }
 }
+
 $value = new BetweenMarkers();
-echo $value->getBetweenMarkers('Ваш шедевр готов!
-Не следует, однако забывать, что консультация с широким активом требуют от нас анализа направлений прогрессивного развития. 
-Повседневная практика показывает, что начало повседневной работы по формированию позиции обеспечивает широкому кругу (специалистов {участие в формировании системы обучения кадров, соответствует насущным потребностям. 
-Таким образом новая модель организационной деятельности/ требуют от нас анализа систем массового участия. 
-Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей деятельности позволяет оценить значение направлений прогрессивного    развития.', '' ,'/');
+
+try {
+    echo $value->getBetweenMarkers('Ваш шедевр готов!
+    Не следует, однако забывать, что консультация с широким активом требуют от нас анализа направлений прогрессивного развития. 
+    Повседневная практика показывает, что начало повседневной работы по формированию позиции обеспечивает широкому кругу (специалистов {участие в формировании системы обучения кадров, соответствует насущным потребностям. 
+    Таким образом новая модель организационной деятельности/ требуют от нас анализа систем массового участия. 
+    Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей деятельности позволяет оценить значение направлений прогрессивного развития.', '{' ,'');
+}
+catch (Exception $e) {
+    echo $e->getMessage();
+}
+

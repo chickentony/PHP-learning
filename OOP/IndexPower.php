@@ -4,6 +4,9 @@
  * Давайте посмотрим на несколько примеров:
  *  - массив = [1, 2, 3, 4] и N = 2, тогда результат 32 == 9;
  *  - массив = [1, 2, 3] и N = 3, но N за границами массива, так что результат -1.
+ * Предусловие: 0 < len(array) ≤ 10
+ * 0 ≤ N
+ * all(0 ≤ x ≤ 100 for x in array)
  */
 
 class IndexPower
@@ -20,20 +23,25 @@ class IndexPower
 
     public function getIndexPower($array, $index)
    {
-       $arrayCount = count($array);
        if ($index >= 0) {
            for ($i = 0; $i < count($array); $i++) {
-               if ($i === $index) {
-                   $result = $this->pow($array[$i], $index);
-                   break;
+               if (max($array) <= 100 && min($array) >= 0) {
+                   if ($i === $index) {
+                       $result = $this->pow($array[$i], $index);
+                       break;
+                   } else {
+                       $result = -1;
+                   }
                } else {
-                   $result = -1;
+                   $result = 'Элемент массива больше ста или меньше нуля.';
                }
            }
+       } else {
+           $result = 'Индекс меньше нуля.';
        }
        return $result;
     }
 }
 
 $arr = new IndexPower();
-echo $arr->getIndexPower([1, 2, 3, 4], 1);
+echo $arr->getIndexPower([1, 2, 3, 99], -2);

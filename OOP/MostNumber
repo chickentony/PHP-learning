@@ -1,0 +1,63 @@
+<?php
+/**
+ * Дан массив чисел (float или/и int). Вам нужно найти разницу между самым большим (максимум) и самым малым (минимум) элементом.
+ * Ваша функция должна уметь работать с неопределенным количеством аргументов. Если аргументов нет, то функция возвращает 0 (ноль).
+ * Числа с плавающей точкой представлены в компьютерах как двоичная дробь. Результат проверяется с точностью до третьего знака, как ±0.001
+ */
+
+class MostNumber
+{
+    private $maxValue = null;
+    private $minValue = null;
+
+    public function getDifference($array)
+    {
+        for ($i = 0; $i < count($array); $i++) {
+            $minValue = min($array);
+            $maxValue = max($array);
+            $result = $maxValue - $minValue;
+        }
+        return $result;
+    }
+
+    public function getDifferenceCustom($array)
+    {
+        $this->setMaxValue($array);
+        $this->setMinValue($array);
+
+        for ($i = 0; $i < count($array); $i++) {
+            $result = $this->maxValue - $this->minValue;
+        }
+        var_dump($this->minValue);
+        var_dump(10.2 <= -2);
+        return $result;
+    }
+
+     private function setMinValue($array)
+    {
+        $minValue = $array[0];
+        for ($i = 0; $i < count($array); $i++) {
+            if ($array[$i] <= $minValue) {
+                $result = $array[$i];
+            }
+        }
+        $this->minValue = $result;
+    }
+
+    private function setMaxValue($array)
+    {
+        $maxValue = $array[0];
+        for ($i = 0; $i < count($array); $i++) {
+            if ($array[$i] >= $maxValue) {
+                $result = $array[$i];
+            }
+        }
+        $this->maxValue = $result;
+    }
+}
+
+$numberArray = new MostNumber();
+echo $numberArray->getDifference([10.2, -2.2, 0, 1.1, 0.5]);
+echo '<br>';
+//Не работает для значений вида -2.2
+echo $numberArray->getDifferenceCustom([10.2, -2, 0, 1.1, 0.5]);

@@ -12,10 +12,21 @@ class MostNumber
 
     public function getDifference($array)
     {
-        for ($i = 0; $i < count($array); $i++) {
-            $minValue = min($array);
-            $maxValue = max($array);
-            $result = $maxValue - $minValue;
+        $arrayLength = count($array);
+        //Предусловие 0 ≤ len(args) ≤ 20
+        if ($arrayLength > 20 || $arrayLength < 0) {
+            throw new Exception('Длина массива больше 20 символов.');
+        } else {
+            for ($i = 0; $i < $arrayLength; $i++) {
+                //Предусловие all(-100 < x < 100 for x in args)
+                if (-100 < $array[$i] && $array[$i] < 100) {
+                    $minValue = min($array);
+                    $maxValue = max($array);
+                    $result = $maxValue - $minValue;
+                } else {
+                    throw new Exception('В массиве есть аргумент больше 100 или меньше -100');
+                }
+            }
         }
         return $result;
     }
@@ -25,39 +36,60 @@ class MostNumber
         $this->setMaxValue($array);
         $this->setMinValue($array);
 
-        for ($i = 0; $i < count($array); $i++) {
-            $result = $this->maxValue - $this->minValue;
+        $arrayLength = count($array);
+        if ($arrayLength < 0 || $arrayLength > 20) {
+            throw new Exception('Длина массива больше 20 символов.');
+        } else {
+            for ($i = 0; $i < $arrayLength; $i++) {
+                if (-100 < $array[$i] && $array[$i] < 100) {
+                    $result = $this->maxValue - $this->minValue;
+
+                } else {
+                   {
+                       throw new Exception('В массиве есть аргумент больше 100 или меньше -100');
+                   }
+                }
+            }
         }
-        var_dump($this->minValue);
-        var_dump(10.2 <= -2);
         return $result;
     }
 
-     private function setMinValue($array)
+    private function setMinValue($array)
     {
         $minValue = $array[0];
-        for ($i = 0; $i < count($array); $i++) {
-            if ($array[$i] <= $minValue) {
-                $result = $array[$i];
+        for ($i = 1; $i < count($array); $i++) {
+            if ($array[$i] < $minValue) {
+                $minValue = $array[$i];
             }
         }
-        $this->minValue = $result;
+        $this->minValue = $minValue;
     }
 
     private function setMaxValue($array)
     {
         $maxValue = $array[0];
-        for ($i = 0; $i < count($array); $i++) {
-            if ($array[$i] >= $maxValue) {
-                $result = $array[$i];
+        for ($i = 1; $i < count($array); $i++) {
+            if ($array[$i] > $maxValue) {
+                $maxValue = $array[$i];
             }
         }
-        $this->maxValue = $result;
+        $this->maxValue = $maxValue;
     }
 }
 
 $numberArray = new MostNumber();
-echo $numberArray->getDifference([10.2, -2.2, 0, 1.1, 0.5]);
+//Рещение через встроенные функции min & max.
+try {
+    echo $numberArray->getDifference([10.2, 2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5]);
+}
+catch (Exception $e) {
+    echo $e->getMessage();
+}
 echo '<br>';
-//Не работает для значений вида -2.2
-echo $numberArray->getDifferenceCustom([10.2, -2, 0, 1.1, 0.5]);
+//Кастомное решение.
+try {
+    echo $numberArray->getDifferenceCustom([10.2, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5, -2.2, 0, 1.1, 0.5]);
+}
+catch (Exception $e) {
+    echo $e->getMessage();
+}

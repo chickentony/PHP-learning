@@ -8,13 +8,17 @@ class DigitsMultiplication
 {
     public function getMultiplication($number)
     {
-        $arr = str_split($number);
-        $result = 1;
-//        $res = '';
-        for ($i = 0; $i < count($arr); $i++) {
-            $intNumberArray = (int)$arr[$i];
-            if ($arr[$i] !== 0) {
-                $result *= $intNumberArray;
+        //Предусловие 0 < number < 10 в 6
+        if ($number < 1 || $number > 1000000) {
+            throw new Exception('Число меньше 0 либо больше 1 000 000');
+        } else {
+            $arr = str_split($number);
+            $result = 1;
+            for ($i = 0; $i < count($arr); $i++) {
+                $intNumberArray = (int)$arr[$i];
+                if ($intNumberArray !== 0) {
+                    $result *= $intNumberArray;
+                }
             }
         }
         return $result;
@@ -22,4 +26,9 @@ class DigitsMultiplication
 }
 
 $value = new DigitsMultiplication();
-$value->getMultiplication(12345);
+try {
+    echo $value->getMultiplication(123040);
+}
+catch (Exception $e) {
+    echo $e->getMessage();
+}

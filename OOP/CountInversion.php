@@ -8,19 +8,34 @@ class CountInversion
 {
     public function getCountInversion($array)
     {
-        $firstArrEl = $array[0];
-        $count = null;
-        for ($i = 0; $i < count($array); $i++) {
-            if ($firstArrEl <= $array[$i]) {
-                $firstArrEl = $array[$i];
-
-//                var_dump($firstArrEl);
-            } else {
-                ++$count;
+        $arrayLength = count($array);
+        //Предусловие из задачи 2 < len(sequence) < 200
+        if ($arrayLength < 2 || $arrayLength > 200) {
+            throw new Exception('Длина последовательности больше 200 символов или меньше 2.');
+        } else {
+            $firstArrEl = $array[0];
+            $count = 0;
+            for ($i = 0; $i < $arrayLength; $i++) {
+                //Предусловие из задачи all(-100 < x < 100 for x in sequence)
+                if ($array[$i] > 100 && $array[$i] > -100) {
+                    throw new Exception('Элемент массива больше -100 или больше 100.');
+                } else {
+                    if ($firstArrEl <= $array[$i]) {
+                        $firstArrEl = $array[$i];
+                    } else {
+                        $count++;
+                    }
+                }
             }
         }
-        var_dump($count);
+        return $count;
     }
 }
+
 $value = new CountInversion();
-$value->getCountInversion([1, 2, 5, 3, 4, 7, 6]);
+try {
+    echo $value->getCountInversion([1, 2, 5, 3, 4, 7, 6]);
+}
+catch (Exception $e) {
+    echo $e->getMessage();
+}

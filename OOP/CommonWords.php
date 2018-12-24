@@ -10,15 +10,39 @@ class CommonWords
 {
     public function getCommonWords($firstString, $secondString)
     {
-        $res = '';
+        $result = [];
         $firstStringAsArray = explode(',', $firstString);
         $secondStringAsArray = explode(',', $secondString);
-        for ($i = 0; $i < count($firstStringAsArray); $i++) {
-            for ($j = 0; $j < count($secondStringAsArray); $j++) {
-                if ($secondStringAsArray[$j] === $firstStringAsArray[$i]) {
-                    $res = implode($firstStringAsArray[$i]);
+        $countedFirstArray = count($firstStringAsArray);
+        $countedSecondArray = count($secondStringAsArray);
+
+        if ($countedFirstArray > 10 || $countedSecondArray > 10) {
+            throw new Exception('Длина строки более 10 слов.');
+        } else {
+            for ($i = 0; $i < $countedFirstArray; $i++) {
+                for ($j = 0; $j < $countedSecondArray; $j++) {
+                    if ($secondStringAsArray[$j] === $firstStringAsArray[$i]) {
+                        array_push($result, $secondStringAsArray[$j]);
+                    }
                 }
             }
         }
+
+        sort($result);
+
+        if (count($result) > 0) {
+            return implode(',', $result);
+        } else {
+            return 'Пустая строка';
+        }
+
     }
+}
+
+$value = new CommonWords();
+try {
+    echo $value->getCommonWords("one,two,three", "four,five,six");
+}
+catch (Exception $e) {
+    echo $e->getMessage();
 }
